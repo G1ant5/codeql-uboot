@@ -1,11 +1,7 @@
 import cpp
 
-// from Macro m, MacroAccess ma
-// where m.getName().regexpMatch("ntoh.") and
-// ma.getMacro().getName() in ["ntohs","ntohl","ntohll"]
-// select m, ma
-
-from MacroAccess ma, ExprCall ec
+from MacroAccess ma, MacroInvocation mi
 where
-ma.getMacro().getName().regexpMatch("ntoh.+")
-select ec.getExpr()
+ma.getMacro().getName().regexpMatch("ntoh.+") and
+mi.getMacroName() = ma.getMacroName()
+select mi.getExpr()
